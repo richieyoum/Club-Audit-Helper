@@ -2,7 +2,7 @@
 ---
 ## Welcome!
 
-This is an internally developed program designed to assist auditing process of student-run clubs.
+This is an internally developed program for SSMU, designed to assist auditing process of student-run clubs.
 
 ---
 
