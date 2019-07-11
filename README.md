@@ -40,5 +40,13 @@ The top 4 variables indicate where your files are located / to be located.
 
 > - clu_file_path -> the transaction list follows naming convention containing the club's CLU number. Enter file path just up until CLU
 
+### TODO
+
+- Better commentation
+
+- Dynamic formatting; xlsxwriter is a bit hardcoded in terms of spacing, etc.
+
+- Many more keywords need to be added
+
 ## Author
 - Richie Youm
