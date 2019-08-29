@@ -42,35 +42,19 @@ FUNCTIONALITY:
 
 8. Summarizes club's expense types by frequency
 
-
-FIRST TIME USER INSTRUCTION
-- Create a folder named 'Transaction Lists'
-- Inside the 'Transaction Lists', create a folder named 'Audit Report'
-- In this code, find "writer" variable and change to the correct file path
-- In this code, find "file_name" variable and change to the correct file path
-- You need to have 'AuditClubList' and 'Compliance Keywords' excel files in the same folder as this program
--> Press F5 to start
-
-
 Note:
 You need to have all of the transaction lists already downloaded in the same folder for the program to work.
-Please do update the keywords file called "compliance_keywords.xlsx"
+Please keep updating the keywords file, "compliance_keywords.xlsx"
 
-TODO:
-- Commenting
-- GUI programming for end user
-- Optimizing code
-- Relocating file paths
- 
 """
 
 import numpy as np
 import pandas as pd
 
-file_names=pd.read_excel('C:/Users/ryoum/Desktop/Audit_Helper/AuditClubList.xlsx')
-keywords=pd.read_excel('C:/Users/ryoum/Desktop/Audit_Helper/Compliance_Keywords.xlsx')
-audit_report_file_path='C:/Users/ryoum/Desktop/Transaction Lists/Audit Report/'
-clu_file_path='C:/Users/ryoum/Desktop/Transaction Lists/FallAudit19-'
+file_names=pd.read_excel('C:/Users/ryoum/Desktop/Audit_Helper/AuditClubList.xlsx') #excel list of CLU to audit
+keywords=pd.read_excel('C:/Users/ryoum/Desktop/Audit_Helper/Compliance_Keywords.xlsx') #excel list of keywords
+audit_report_file_path='C:/Users/ryoum/Desktop/Transaction Lists/Audit Report/' #where the report would be generated
+clu_file_path='C:/Users/ryoum/Desktop/Transaction Lists/FallAudit19-' #file path of the transaction lists and their naming convention before CLU number (ie. WinterAudit20-)
 
 def preprocessing(file_name):
 
@@ -296,6 +280,7 @@ for file_name in file_names['CLU Number'].replace(' ',''):
     worksheet3.conditional_format('J5:J'+str(expFreq.shape[0]+4),{'type':'formula','criteria':"K5:K{} >= {}".format(int(expFreq.shape[0]+1),int(expFreq.quantile(.75))),'format':bold_colored_format})
     worksheet3.set_column('B:D',None,currency_format)
     
+    #spaces the columns out
     for i,width in enumerate(get_col_widths(df)):
         worksheet1.set_column(i,i,width)
         worksheet2.set_column(i,i,width)
