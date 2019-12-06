@@ -51,10 +51,10 @@ Please keep updating the keywords file, "compliance_keywords.xlsx"
 import numpy as np
 import pandas as pd
 
-file_names=pd.read_excel('C:/Users/ryoum/Desktop/Audit_Helper/AuditClubList.xlsx') #excel list of CLU to audit
-keywords=pd.read_excel('C:/Users/ryoum/Desktop/Audit_Helper/Compliance_Keywords.xlsx') #excel list of keywords
-audit_report_file_path='C:/Users/ryoum/Desktop/Transaction Lists/Audit Report/' #where the report would be generated
-clu_file_path='C:/Users/ryoum/Desktop/Transaction Lists/FallAudit19-' #file path of the transaction lists and their naming convention before CLU number (ie. WinterAudit20-)
+file_names=pd.read_excel('AuditClubList.xlsx') #excel list of CLU to audit
+keywords=pd.read_excel('Compliance_Keywords.xlsx') #excel list of keywords
+audit_report_file_path='Audit Report/' #where the report would be generated
+clu_file_path='FallAudit19-' #file path of the transaction lists and their naming convention before CLU number (ie. WinterAudit20-)
 
 def preprocessing(file_name):
 
@@ -276,7 +276,10 @@ for file_name in file_names['CLU Number'].replace(' ',''):
     worksheet3.write(x_tot.shape[0]+x_dep.shape[0]+9,1,np.sum(x_dep['Amount']))
     
     worksheet3.conditional_format('D5:D'+str(x_tot.shape[0]+4),{'type':'3_color_scale'})
-    worksheet3.conditional_format('F5:F'+str(freq.shape[0]+4),{'type':'formula','criteria':"G5:G{} >= {}".format(int(freq.shape[0]+1),int(freq.quantile(.75))),'format':bold_colored_format})
+    try:
+        worksheet3.conditional_format('F5:F'+str(freq.shape[0]+4),{'type':'formula','criteria':"G5:G{} >= {}".format(int(freq.shape[0]+1),int(freq.quantile(.75))),'format':bold_colored_format})
+    except ValueError:
+        pass
     worksheet3.conditional_format('J5:J'+str(expFreq.shape[0]+4),{'type':'formula','criteria':"K5:K{} >= {}".format(int(expFreq.shape[0]+1),int(expFreq.quantile(.75))),'format':bold_colored_format})
     worksheet3.set_column('B:D',None,currency_format)
     
